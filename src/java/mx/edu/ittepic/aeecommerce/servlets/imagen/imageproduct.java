@@ -3,26 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mx.edu.ittepic.aeecommerce.servlets.company;
+package mx.edu.ittepic.aeecommerce.servlets.imagen;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.ejb.EJB;
+import java.nio.file.Files;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import mx.edu.ittepic.aeecommerce.ejbs.EJBEcommerceCompany;
 
-/**
- *
- * @author Stevens Vera
- */
-@WebServlet(name = "NewCompany", urlPatterns = {"/NewCompany"})
-public class NewCompany extends HttpServlet {
-    @EJB
-    private EJBEcommerceCompany ejb;
+
+@WebServlet(name = "imageproduct", urlPatterns = {"/imageproduct"})
+public class imageproduct extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,7 +30,19 @@ public class NewCompany extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet imageproduct</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet imageproduct at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -50,7 +57,15 @@ public class NewCompany extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        //processRequest(request, response);
+        String filename = request.getParameter("image");
+        //File file = new File("/var/www/images/users/", filename);
+        File file = new File("c:\\var\\www\\imagen\\users\\", filename);
+        response.setHeader("Content-Type", getServletContext().getMimeType(filename));
+        response.setHeader("Content-Length", String.valueOf(file.length()));
+        response.setHeader("Content-Disposition", "inline; filename=\"" + filename + "\"");
+        Files.copy(file.toPath(), response.getOutputStream());
+    
     }
 
     /**
@@ -64,25 +79,7 @@ public class NewCompany extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
-        response.setContentType("application/json;charset=UTF-8");
-        response.setHeader("Cache-Control", "no-store");
-        
-        String companyname = request.getParameter("companyname");
-        String neighborhood = request.getParameter("neighborhood");
-        String zipcode = request.getParameter("zipcode");
-        String city = request.getParameter("city");
-        String country = request.getParameter("country");
-        String state = request.getParameter("state");
-        String region = request.getParameter("region");
-        String street = request.getParameter("street");
-        String streetnumber = request.getParameter("streetnumber");
-        String phone = request.getParameter("phone");
-        String rfc = request.getParameter("rfc");
-        String logo = request.getParameter("logo");
-        
-        PrintWriter out = response.getWriter();
-        out.print(ejb.NewCompany(companyname, neighborhood, zipcode, city, country, state, region, street, streetnumber, phone, rfc, logo));
+        processRequest(request, response);
     }
 
     /**
