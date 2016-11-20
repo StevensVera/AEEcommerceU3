@@ -48,6 +48,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Product.findBySalepricemay", query = "SELECT p FROM Product p WHERE p.salepricemay = :salepricemay")})
 public class Product implements Serializable {
 
+    @Size(max = 255)
+    @Column(name = "photo")
+    private String photo;
+
     @Column(name = "purchprice")
     private Integer purchprice;
 
@@ -234,6 +238,14 @@ public class Product implements Serializable {
 
     public void setSalepricemay(int salepricemay) {
         this.salepricemay = salepricemay;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
     
 }

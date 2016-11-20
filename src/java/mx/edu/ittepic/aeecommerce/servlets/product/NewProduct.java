@@ -6,14 +6,18 @@
 package mx.edu.ittepic.aeecommerce.servlets.product;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.nio.file.Paths;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import mx.edu.ittepic.aeecommerce.ejbs.EJBEcommerceProducts;
+import mx.edu.ittepic.aeecommerce.util.Image;
 
 
 /**
@@ -99,11 +103,16 @@ public class NewProduct extends HttpServlet {
         String currency=request.getParameter("currency");
         String categoryid=request.getParameter("categoryid");
         String salepricemay=request.getParameter("salepricemay");
+        
+        Part foto= request.getPart("image");
+        String fotoname = Paths.get(foto.getSubmittedFileName()).getFileName().toString();
+        InputStream fcontent = foto.getInputStream();
+        Image imagen = new Image(fotoname, fcontent);
        
         PrintWriter out = response.getWriter();
         //out.print(ejb.newProduct(code, brand, purchprice, productname, stock, salepricemin, salepricemay, reorderpoint, cat, currency));
         //out.print(ejb.newProduct(code, brand, purchprice, productname, stock, salepricemin, salepricemay, reorderpoint, categoryid, currency));
-        out.print(ejb.newProduct(code,productname,brand,purchprice,stock,salepricemin,reorderpoint,currency,categoryid,salepricemay));
+        out.print(ejb.newProduct(code,productname,brand,purchprice,stock,salepricemin,reorderpoint,currency,categoryid,salepricemay,imagen));
         //processRequest(request, response);
     
         }

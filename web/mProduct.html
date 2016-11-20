@@ -152,17 +152,19 @@ and open the template in the editor.
                         </div>
                     </div>
                  <!---------------------- IDE de categoryid---------------------------->
-                    <div class="form-group">
-                        <!--<label class="control-label" for="rolename">Rol</label>-->
-                        <label class="control-label" for="categoryid">categoryid</label>
-                        <div class="input-group">
-                            <span class="input-group-addon">
-                                <i class="glyphicon glyphicon-adjust"></i>
-                            </span>
-                            <!--<input class="form-control" type="text" id="rolename" name="rolename" placeholder="nombre del rol"/>-->
-                            <input class="form-control" type="text" id="categoryid" name="categoryid" placeholder=" add categoryid"/>
-                        </div>
-                    </div>
+                    
+                                <div class="form-group">
+                                    <label class="control-label" for="cat">Categoria</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="glyphicon glyphicon-adjust"></i>
+                                        </span>
+                                        <select class="form-control"  id="cat" name="cat">
+
+                                        </select>
+                                    </div>
+                                </div>
+                            
                  <!---------------------- IDE de salepricemay---------------------------->
                     <div class="form-group">
                         <!--<label class="control-label" for="rolename">Rol</label>-->
@@ -175,7 +177,18 @@ and open the template in the editor.
                             <input class="form-control" type="text" id="salepricemay" name="salepricemay" placeholder=" add salepricemay"/>
                         </div>
                     </div>
-                     
+                  <!---------------------- IDE de Imagen---------------------------->
+                <!-- <div class="col col-lg-4 col-md-4 col-sm-4 col-xs-4">-->
+                        <div class="form-group">
+                            <label class="control-label" for="image">Imagen</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-adjust"></i>
+                                </span>
+                                <input class="form-control" type="file" id="image" name="image" />
+                            </div>
+                        </div>
+                  
                     <div align="right">
                         <button type="submit"  class="btn btn-danger btn-lg"><i class="glyphicon glyphicon-cd"></i> Guardar</button>
                     </div>
@@ -189,6 +202,7 @@ and open the template in the editor.
                     <thead>
                          <tr>
                             <td>Code</td>
+                            <td>Image</td>
                             <td>Product</td>
                             <td>Brand</td>
                             <td>Purchprice</td>

@@ -18,16 +18,33 @@ $(function () {
                $('<option>'+rol.rolename+'</<option>').attr('value',rol.roleid).appendTo('#cbRoles');
                //$('<option></<option>',{text:'rol.rolename'}).attr('value',rol.roleid).appendTo('#cbRoles');
            });
-           
-          
           }
     });
+    
+     $.ajax({
+        url: 'GetCategorys',
+        type: 'get',
+        dataType: 'json'
+    }).done(function (eljason) {
+        if (eljason.code == 200) {
+            console.log('si entra al json');
+            var categories = $.parseJSON(eljason.msg);
+            categories.forEach(function (item) {
+                $('<option></option>', {text: item.categoryname}).attr('value', item.categoryid).appendTo('#cat');
+                $('<option></option>', {text: item.categoryname}).attr('value', item.categoryid).appendTo('#modalProduct #cat');
+            });
+        }
+
+    }).fail();
     
     $("#frmrole").validate({
         rules: {
             code: {
                 minlength: 3,
                 maxlength: 20,
+                required: true
+            },
+            image:{
                 required: true
             },
             productname: {
@@ -65,11 +82,12 @@ $(function () {
                 maxlength: 20,
                 required: true
             },
+            /*
             categoryid: {
                 minlength: 1,
                 maxlength: 20,
                 required: true
-            },
+            }, */
             salepricemay: {
                 minlength: 1,
                 maxlength: 20,
@@ -202,6 +220,12 @@ $(function () {
                data: "code"
            },
            {
+             data:"photo",
+             "render":function (data, type, row){
+                  return '<img width="50px" height="50px" src="ProductImage?image='+data+'" />';
+              }
+           },
+           {
                data: "productname"
            },
            {
@@ -261,7 +285,7 @@ function updateProduct(id,code,productname,brand,purchprice,
             salepricemin:salepricemin,
             reorderpoint:reorderpoint,
             currency:currency,
-            //categoryid:categoryid,
+            categoryid:categoryid,
             salepricemay:salepricemay     
         }
         //data: $('#frmEditRole').serialize(),
@@ -378,7 +402,7 @@ function newProduct() {
     }).done(function (eljson) {
         if (eljson.code === 200){
             $('#tbProduct').dataTable().api().ajax.reload();
-            $('#code','#productname','#brand','#purchprice','#stock','#salepricemin','#reorderpoint','#currency','#salepricemay').val('');
+            $('#code','#image','#productname','#brand','#purchprice','#stock','#salepricemin','#reorderpoint','#currency','#salepricemay').val('');
             /*
             $('#productname').val('');
             $('#brand').val('');
@@ -404,3 +428,42 @@ function newProduct() {
             });
     }).fail();
 }
+
+/*
+function newProduct2() {
+    var data = new FormData($('#frmproduct')[0]);
+    $.ajax({
+        url: "NewProduct",
+        type: "post",
+        data: data,
+        contentType: false,
+        processData: false,
+    }).done(function (eljson) {
+        console.log(eljson);
+        if (eljson.code === 200) {
+            $('#tbProducts').dataTable().api().ajax.reload();
+            $('#tbProducts').dataTable().api().ajax.reload();
+            $('#productname').val('');
+            $('#brand').val('');
+            $('#cat').val('');
+            $('#code').val('');
+            $('#currency').val('');
+            $('#purchprice').val('');
+            $('#salepricemay').val('');
+            $('#salepricemin').val('');
+            $('#reorderpoint').val('');
+            $('#stock').val('');
+            $.growl.notice({
+                title: eljson.detail,
+                message: "Todo bien",
+                location: 'bc',
+            });
+        } else
+            $.growl.error({
+                title: eljson.msg,
+                message: "Error",
+                location: 'bc',
+            });
+    }).fail();
+}
+*/

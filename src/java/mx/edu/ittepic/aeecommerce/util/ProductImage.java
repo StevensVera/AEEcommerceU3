@@ -3,27 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mx.edu.ittepic.aeecommerce.servlets.product;
+package mx.edu.ittepic.aeecommerce.util;
 
+import java.io.File;
 import java.io.IOException;
-
-import javax.ejb.EJB;
+import java.io.PrintWriter;
+import java.nio.file.Files;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import mx.edu.ittepic.aeecommerce.ejbs.EJBEcommerceProducts;
 
 /**
  *
  * @author gustavo
  */
-@WebServlet(name = "UpdateProduct", urlPatterns = {"/UpdateProduct"})
-public class UpdateProduct extends HttpServlet {
-
-    @EJB
-    private EJBEcommerceProducts ejb;
+@WebServlet(name = "ProductImage", urlPatterns = {"/ProductImage"})
+public class ProductImage extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,7 +33,19 @@ public class UpdateProduct extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet ProductImage</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet ProductImage at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -51,7 +60,13 @@ public class UpdateProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        //processRequest(request, response);
+        String filename = request.getParameter("image");
+        File file = new File("c:\\var\\www\\images\\products\\", filename);
+        response.setHeader("Content-Type", getServletContext().getMimeType(filename));
+        response.setHeader("Content-Length", String.valueOf(file.length()));
+        response.setHeader("Content-Disposition", "inline; filename=\"" + filename + "\"");
+        Files.copy(file.toPath(), response.getOutputStream());
     }
 
     /**
@@ -65,25 +80,7 @@ public class UpdateProduct extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        response.setContentType("application/json;charset=UTF-8");
-        response.setHeader("Cache-Control", "no-store");
-        
-        String id=request.getParameter("productid");
-        String code=request.getParameter("code");
-        String productname=request.getParameter("productname");
-        String brand=request.getParameter("brand");
-        String purchprice=request.getParameter("purchprice");
-        String stock=request.getParameter("stock");
-        String salepricemin=request.getParameter("salepricemin");
-        String reorderpoint=request.getParameter("reorderpoint");
-        String currency=request.getParameter("currency");
-        String cat=request.getParameter("cat");
-        String salepricemay=request.getParameter("salepricemay");
-        String photo=request.getParameter("photo");
-        response.getWriter().print(ejb.updateProduct(id,code,productname,brand,purchprice,stock,salepricemin
-                ,reorderpoint,currency,cat,salepricemay,photo));
-//processRequest(request, response);
+        processRequest(request, response);
     }
 
     /**

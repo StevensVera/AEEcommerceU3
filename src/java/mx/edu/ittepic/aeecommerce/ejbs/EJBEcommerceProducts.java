@@ -7,7 +7,15 @@ package mx.edu.ittepic.aeecommerce.ejbs;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.LockTimeoutException;
@@ -20,6 +28,7 @@ import javax.persistence.TransactionRequiredException;
 import mx.edu.ittepic.aeecommerce.entities.Category;
 import mx.edu.ittepic.aeecommerce.entities.Product;
 import mx.edu.ittepic.aeecommerce.util.Message;
+import mx.edu.ittepic.aeecommerce.util.Image;
 
 /**
  *
@@ -34,7 +43,7 @@ public class EJBEcommerceProducts {
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
     public String newProduct(String code, String brand, String purchprice, String productname, String stock,
-            String salepricemin, String salepricemay, String reorderpoint, String categoryid, String curency) {
+            String salepricemin, String salepricemay, String reorderpoint, String categoryid, String curency,Image image) {
 
         Message m = new Message();
         GsonBuilder builder = new GsonBuilder();
@@ -51,6 +60,17 @@ public class EJBEcommerceProducts {
         p.setReorderpoint(Integer.parseInt(reorderpoint));
         p.setCurrency(curency);
         p.setCategoryid(c);
+        
+        Path file;
+            try {
+                file = Files.createTempFile(Paths.get("C:\\var\\www\\images\\products\\"), "product-", ".png");
+                 try (InputStream input = image.getContent()) {
+                Files.copy(input, file, StandardCopyOption.REPLACE_EXISTING);
+                p.setPhoto(file.getFileName().toString());
+            }
+            } catch (IOException ex) {
+                Logger.getLogger(EJBEcommercerUsers.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
         entity.persist(p);
         entity.flush();
@@ -67,7 +87,7 @@ public class EJBEcommerceProducts {
     */
      public String updateProduct(String id, String code,String productname, String brand,
              String purchprice,String stock,String salepricemin,String reorderpoint,
-             String curency,String categoryid, String salepricemay){
+             String curency,String categoryid, String salepricemay, String photo){
   
         Message m = new Message();
         GsonBuilder builder = new GsonBuilder();
@@ -87,6 +107,7 @@ public class EJBEcommerceProducts {
                 p.setCurrency(curency);
                 p.setCategoryid(c);
                 p.setSalepricemay(Integer.parseInt(salepricemay));
+                p.setPhoto(photo);
                 entity.merge(p);
                 //entity.flush();
                 m.setCode(200);
