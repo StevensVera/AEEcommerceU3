@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<script type="text/javascript" src="js/plugins/jquery-3.1.0.js"></script>
+        <script type="text/javascript" src="js/plugins/jquery-3.1.0.js"></script>
+        <script type="text/javascript" src="js/plugins/jquery.validate.min.js"></script>
+        <script type="text/javascript" src="js/plugins/jquery.growl.js"></script>
+        <script type="text/javascript" src="js/plugins/datatable/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="js/plugins/datatable/dataTables.buttons.min.js"></script>
+        <script type="text/javascript" src="js/plugins/datatable/jszip.min.js"></script>
+        <script type="text/javascript" src="js/plugins/datatable/pdfmake.min.js"></script>
+        <script type="text/javascript" src="js/plugins/datatable/vfs_fonts.js"></script>
+        <script type="text/javascript" src="js/plugins/datatable/buttons.html5.min.js"></script>
+        <script type="text/javascript" src="js/plugins/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="css/jquery.dataTables.min.css">
+        <link rel="stylesheet" href="css/buttons.dataTables.min.css">
+
+        <script type="text/javascript" src="js/Company.js"></script>
+        
+        <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+        <link rel="stylesheet" href="css/jquery.growl.css" type="text/css">
+        <script type="text/javascript" src="js/plugins/bootbox.min.js"></script>
+        <script type="text/javascript" src="js/plugins/datatable/numeral.min.js"></script>
+<div id="modalRole" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal">&times;</button>
+                <h4>Modificar Rol</h4>
+            </div>
+            <div class="modal-body">
+                <form id="frmEditCompany">
+                    <div class="form-group">
+                        <label class="control-label" 
+                               for="rolename2">Rol</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-user"></i>
+                            </span>
+                            <input type="hidden" id="roleid" name="roleid"/>
+                            <input class="form-control" id="rolename2" name="rolename2" placeholder="Nombre del rol">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="btnModificar" class="btn btn-sm btn-primary">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+            <div class="row">
+                <div class="col col-lg-8 col-md-8 col-sm-8 col-xs-8 col-sm-offset-2">
+                    <form id="frmCompanys" >
+                  <!-------------------IDE Companyname  -------------------->
+                   <div class="form-group">
+                        <label class="control-label" for="companyname">Companyname</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-adjust"></i>
+                            </span>
+                            <input class="form-control" type="text" id="companyname" name="companyname" placeholder="Add companyname"/>
+                        </div>
+                    </div>
+                  <!-------------------IDE neighborhood  -------------------->
+                   <div class="form-group">
+                        <label class="control-label" for="neighborhood">neighborhood</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-adjust"></i>
+                            </span>
+                            <input class="form-control" type="text" id="neighborhood" name="neighborhood" placeholder="Add neighborhood"/>
+                        </div>
+                      </div>   
+                   <!-------------------IDE zipcode  -------------------->
+                   <div class="form-group">
+                        <label class="control-label" for="zipcode">zipcode</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-adjust"></i>
+                            </span>
+                            <input class="form-control" type="text" id="zipcode" name="zipcode" placeholder="Add zipcode"/>
+                        </div>    
+                    </div>
+                   <!-------------------IDE city  -------------------->
+                   <div class="form-group">
+                        <label class="control-label" for="city">city</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-adjust"></i>
+                            </span>
+                            <input class="form-control" type="text" id="city" name="city" placeholder="Add city"/>
+                        </div>    
+                    </div>
+                    <!-------------------IDE country -------------------->
+                   <div class="form-group">
+                        <label class="control-label" for="country">country</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-adjust"></i>
+                            </span>
+                            <input class="form-control" type="text" id="country" name="country" placeholder="Add country"/>
+                        </div>    
+                    </div>
+                    <!-------------------IDE state -------------------->
+                   <div class="form-group">
+                        <label class="control-label" for="state">state</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-adjust"></i>
+                            </span>
+                            <input class="form-control" type="text" id="state" name="state" placeholder="ADD state"/>
+                        </div>    
+                    </div>
+                     <!-------------------IDE region -------------------->
+                   <div class="form-group">
+                        <label class="control-label" for="region">region</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-adjust"></i>
+                            </span>
+                            <input class="form-control" type="text" id="region" name="region" placeholder="ADD region"/>
+                        </div>    
+                    </div>
+                    <!-------------------IDE street -------------------->
+                   <div class="form-group">
+                        <label class="control-label" for="street">street</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-adjust"></i>
+                            </span>
+                            <input class="form-control" type="text" id="street" name="street" placeholder="ADD street"/>
+                        </div>    
+                    </div>
+                     <!-------------------IDE streetnumber -------------------->
+                   <div class="form-group">
+                        <label class="control-label" for="streetnumber">streetnumber</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-adjust"></i>
+                            </span>
+                            <input class="form-control" type="text" id="streetnumber" name="streetnumber" placeholder="ADD streetnumber"/>
+                        </div>    
+                    </div>
+                      <!-------------------IDE phone -------------------->
+                   <div class="form-group">
+                        <label class="control-label" for="phone">phone</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-adjust"></i>
+                            </span>
+                            <input class="form-control" type="text" id="phone" name="phone" placeholder="ADD phone"/>
+                        </div>    
+                    </div>
+                      <!-------------------IDE rfc -------------------->
+                   <div class="form-group">
+                        <label class="control-label" for="rfc">rfc</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-adjust"></i>
+                            </span>
+                            <input class="form-control" type="text" id="rfc" name="rfc" placeholder="ADD rfc"/>
+                        </div>    
+                    </div>
+                       <!-------------------IDE logo -------------------->
+                   <div class="form-group">
+                        <label class="control-label" for="logo">logo</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-adjust"></i>
+                            </span>
+                            <input class="form-control" type="text" id="logo" name="logo" placeholder="ADD logo"/>
+                        </div>    
+                    </div>
+                    <div align="right">
+                        <button type="submit"  class="btn btn-danger btn-lg"><i class="glyphicon glyphicon-cd"></i> Guardar</button>
+                    </div>
+                </form>
+                </div>
+            </div>
+            <div class="row"> <hr></div>
+            <div class="row">
+                <div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <table id="tbCompanys">
+                    <thead>
+                        <tr>
+                            <td>Companyname</td>
+                            <td>Neighborhood</td>
+                            <td>Zipcode</td>
+                            <td>City</td>
+                            <td>Country</td>
+                            <td>State</td>
+                            <td>Region</td>
+                            <td>Street</td>
+                            <td>Streetnumber</td>
+                            <td>Phone</td>
+                            <td>RFC</td>
+                            <td>Logo</td>
+                            <td>Operaciones</td>
+                        </tr>        
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+            </div> 

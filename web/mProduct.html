@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<script type="text/javascript" src="js/plugins/jquery-3.1.0.js"></script>
+        <script type="text/javascript" src="js/plugins/jquery-3.1.0.js"></script>
+        <script type="text/javascript" src="js/plugins/jquery.validate.min.js"></script>
+        <script type="text/javascript" src="js/plugins/jquery.growl.js"></script>
+        <script type="text/javascript" src="js/plugins/datatable/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="js/plugins/datatable/dataTables.buttons.min.js"></script>
+        <script type="text/javascript" src="js/plugins/datatable/jszip.min.js"></script>
+        <script type="text/javascript" src="js/plugins/datatable/pdfmake.min.js"></script>
+        <script type="text/javascript" src="js/plugins/datatable/vfs_fonts.js"></script>
+        <script type="text/javascript" src="js/plugins/datatable/buttons.html5.min.js"></script>
+        <script type="text/javascript" src="js/plugins/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="css/jquery.dataTables.min.css">
+        <link rel="stylesheet" href="css/buttons.dataTables.min.css">
+
+        <script type="text/javascript" src="js/Products.js"></script>
+        
+        <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+        <link rel="stylesheet" href="css/jquery.growl.css" type="text/css">
+        <script type="text/javascript" src="js/plugins/bootbox.min.js"></script>
+        <script type="text/javascript" src="js/plugins/datatable/numeral.min.js"></script>
+
+<div id="modalRole" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal">&times;</button>
+                <h4>Modificar Rol</h4>
+            </div>
+            <div class="modal-body">
+                <form id="frmEditRole">
+                    <div class="form-group">
+                        <label class="control-label" 
+                               for="rolename2">Rol</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-user"></i>
+                            </span>
+                            <input type="hidden" id="roleid" name="roleid"/>
+                            <input class="form-control" id="rolename2" name="rolename2" placeholder="Nombre del rol">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="btnModificar" class="btn btn-sm btn-primary">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+            <div class="row">
+                <div class="col col-lg-8 col-md-8 col-sm-8 col-xs-8 col-sm-offset-2">
+                    <form id="frmrole" >
+                     <!---------------ID de CODE ---------------->   
+                    <div class="form-group">
+                        <label class="control-label" for="code">code</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-adjust"></i>
+                            </span>
+                            <input class="form-control" type="text" id="code" name="code" placeholder="nombre del code"/>
+                        </div>
+                    </div>
+                     <!---------------------- IDE de Productname ---------------------------->    
+                    <div class="form-group">
+                        <!--<label class="control-label" for="rolename">Rol</label>-->
+                        <label class="control-label" for="productname">Product</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-adjust"></i>
+                            </span>
+                            <!--<input class="form-control" type="text" id="rolename" name="rolename" placeholder="nombre del rol"/>-->
+                            <input class="form-control" type="text" id="productname" name="productname" placeholder="add product"/>
+                        </div>
+                    </div>
+               <!---------------------- IDE de Brand---------------------------->    
+                    <div class="form-group">
+                        <!--<label class="control-label" for="rolename">Rol</label>-->
+                        <label class="control-label" for="brand">Brand</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-adjust"></i>
+                            </span>
+                            <!--<input class="form-control" type="text" id="rolename" name="rolename" placeholder="nombre del rol"/>-->
+                            <input class="form-control" type="text" id="brand" name="brand" placeholder="add brand"/>
+                        </div>
+                    </div>
+                <!---------------------- IDE de Purchprimce ---------------------------->
+                    <div class="form-group">
+                        <!--<label class="control-label" for="rolename">Rol</label>-->
+                        <label class="control-label" for="purchprice">purchprice</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-adjust"></i>
+                            </span>
+                            <!--<input class="form-control" type="text" id="rolename" name="rolename" placeholder="nombre del rol"/>-->
+                            <input class="form-control" type="text" id="purchprice" name="purchprice" placeholder=" add purchprice"/>
+                        </div>
+                    </div>
+                <!---------------------- IDE de Stock ---------------------------->
+                    <div class="form-group">
+                        <!--<label class="control-label" for="rolename">Rol</label>-->
+                        <label class="control-label" for="stock">stock</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-adjust"></i>
+                            </span>
+                            <!--<input class="form-control" type="text" id="rolename" name="rolename" placeholder="nombre del rol"/>-->
+                            <input class="form-control" type="text" id="stock" name="stock" placeholder=" add stock"/>
+                        </div>
+                    </div>    
+                <!---------------------- IDE de Salepricemin ---------------------------->
+                    <div class="form-group">
+                        <!--<label class="control-label" for="rolename">Rol</label>-->
+                        <label class="control-label" for="salepricemin">salepricemin</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-adjust"></i>
+                            </span>
+                            <!--<input class="form-control" type="text" id="rolename" name="rolename" placeholder="nombre del rol"/>-->
+                            <input class="form-control" type="text" id="salepricemin" name="salepricemin" placeholder=" add salepricemin"/>
+                        </div>
+                    </div>
+                 <!---------------------- IDE de reorderpoint---------------------------->
+                    <div class="form-group">
+                        <!--<label class="control-label" for="rolename">Rol</label>-->
+                        <label class="control-label" for="reorderpoint">reorderpoint</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-adjust"></i>
+                            </span>
+                            <!--<input class="form-control" type="text" id="rolename" name="rolename" placeholder="nombre del rol"/>-->
+                            <input class="form-control" type="text" id="reorderpoint" name="reorderpoint" placeholder=" add reorderpoint"/>
+                        </div>
+                    </div>
+                 <!---------------------- IDE de currency---------------------------->
+                    <div class="form-group">
+                        <!--<label class="control-label" for="rolename">Rol</label>-->
+                        <label class="control-label" for="currency">currency</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-adjust"></i>
+                            </span>
+                            <!--<input class="form-control" type="text" id="rolename" name="rolename" placeholder="nombre del rol"/>-->
+                            <input class="form-control" type="text" id="currency" name="currency" placeholder=" add currency"/>
+                        </div>
+                    </div>
+                 <!---------------------- IDE de categoryid---------------------------->
+                    <div class="form-group">
+                        <!--<label class="control-label" for="rolename">Rol</label>-->
+                        <label class="control-label" for="categoryid">categoryid</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-adjust"></i>
+                            </span>
+                            <!--<input class="form-control" type="text" id="rolename" name="rolename" placeholder="nombre del rol"/>-->
+                            <input class="form-control" type="text" id="categoryid" name="categoryid" placeholder=" add categoryid"/>
+                        </div>
+                    </div>
+                 <!---------------------- IDE de salepricemay---------------------------->
+                    <div class="form-group">
+                        <!--<label class="control-label" for="rolename">Rol</label>-->
+                        <label class="control-label" for="salepricemay">salepricemay</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-adjust"></i>
+                            </span>
+                            <!--<input class="form-control" type="text" id="rolename" name="rolename" placeholder="nombre del rol"/>-->
+                            <input class="form-control" type="text" id="salepricemay" name="salepricemay" placeholder=" add salepricemay"/>
+                        </div>
+                    </div>
+                     
+                    <div align="right">
+                        <button type="submit"  class="btn btn-danger btn-lg"><i class="glyphicon glyphicon-cd"></i> Guardar</button>
+                    </div>
+                </form>
+                </div>
+            </div>
+            <div class="row"> <hr></div>
+            <div class="row">
+                <div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <table id="tbProduct">
+                    <thead>
+                         <tr>
+                            <td>Code</td>
+                            <td>Product</td>
+                            <td>Brand</td>
+                            <td>Purchprice</td>
+                            <td>Stock</td>
+                            <td>Salepricemin</td>
+                            <td>Reorderpoint</td>
+                            <td>Currency</td>
+                            <!--<td>Categoryid</td>-->
+                            <td>Salepricemay</td>
+                            <td>Operaciones</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+            </div>   
