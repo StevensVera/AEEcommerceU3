@@ -137,18 +137,16 @@ public class EJBEcommerceCompany {
  }
  
    public String findCompany() {
-        Message m = new Message();
+     Message m = new Message();
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
-        Query q;
-        List<Company> listCompany;
 
         try {
-            q = entity.createNamedQuery("Company.findAll");
-            listCompany = q.getResultList();
+            Query q = entity.createNamedQuery("Company.findAll");
+            List<Company> companies = q.getResultList();
             m.setCode(200);
-            m.setMsg(gson.toJson(listCompany));
-            m.setDetail("todo hermoso tmb");
+            m.setDetail("ok");
+            m.setMsg(gson.toJson(companies));
 
         } catch (IllegalArgumentException e) {
             m.setCode(406);
@@ -175,7 +173,6 @@ public class EJBEcommerceCompany {
             m.setMsg("Error, algo paso en el server");
             m.setDetail(e.getMessage());
         }
-
         return gson.toJson(m);
 
     }
