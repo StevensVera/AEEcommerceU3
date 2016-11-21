@@ -5,6 +5,7 @@
  */
 
 $(function () {
+   
      $.ajax({
         url:'GetRoles',
         type:'GET',
@@ -36,6 +37,8 @@ $(function () {
         }
 
     }).fail();
+    
+     
     
     $("#frmrole").validate({
         rules: {
@@ -166,21 +169,66 @@ $(function () {
             return false;
         }
 
+
     });
-    $("#frmEditRole").validate({
+    
+    $("#btnModificar").on("click", function () {
+        $("#frmEditProduct").submit();
+    });
+    
+    
+    $("#frmEditProduct").validate({
+        lang: 'es',
         rules: {
-            rolename: {
+            productname: {
+                minlength: 3,
+                maxlength: 40,
+                required: true,
+            },
+            brand: {
+                minlength: 3,
+                maxlength: 40,
+                required: true,
+            },
+            cat: {
+                required: true,
+                number: true,
+            },
+            code: {
+                required: true,
                 minlength: 3,
                 maxlength: 20,
-                required: true,
-            }
-        },
-        messages: {
-            rolename: {
-                minlength: "Minimo 3 caracteres",
-                maxlength: "máximo 20 caracteres",
-                required: "Se requiere este campo",
             },
+            currency: {
+                required: true,
+                //minlength: 3,
+                maxlength: 3,
+            },
+            purchprice: {
+                //required: true,
+                number: true,
+            },
+            salepricemay: {
+                required: true,
+                number: true,
+            },
+            salepricemin: {
+                //required: true,
+                number: true,
+            },
+            reorderpoint: {
+                //required: true,
+                number: true,
+            },
+            stock: {
+                //required: true,
+                number: true,
+            },
+            image2: {
+                //required: true,
+                required: true,
+            },
+            
         },
         highlight: function (element) {
             $(element).closest('.form-group').addClass('has-error');
@@ -198,7 +246,7 @@ $(function () {
             }
         },
         submitHandler: function (form) {
-            updateRole();
+            UpdateProduct();
             return false;
         }
 
@@ -268,7 +316,7 @@ $(function () {
                     str += '<button id="btnGuardar" title="Actualizar" class="btn btn-success btn-xs" onclick="showProduct' +'(\''
                             + row.productid + '\',\'' + row.productname + '\',\'' + row.brand + '\',\'' + row.categoryid.categoryid + '\',\'' 
                             +row.code + '\',\'' + row.currency + '\',\'' + row.purchprice + '\',\'' + row.salepricemay + '\',\'' 
-                            +row.salepricemin + '\',\'' + row.reorderpoint + '\',\'' + row.stock + '\'  );" ><i class="glyphicon glyphicon-edit"></i></button></div>';
+                            +row.salepricemin + '\',\'' + row.reorderpoint + '\',\'' + row.stock + '\',\'' + row.photo + '\'  );" ><i class="glyphicon glyphicon-edit"></i></button></div>';
                     return str;
                 }
             }
@@ -277,7 +325,7 @@ $(function () {
     });
 });
 
-function updateProduct(id,code,productname,brand,purchprice,
+function updateProduct2(id,code,productname,brand,purchprice,
         stock,salepricemin,reorderpoint,currency,categoryid,salepricemay){
         $.ajax({
         url:'UpdateProduct',   
@@ -300,7 +348,7 @@ function updateProduct(id,code,productname,brand,purchprice,
         if(eljson.code===200){
             $('#tbProduct').dataTable().api().ajax.reload();
             //$('#rolename2').val('');
-            $('#modalRole').modal('hide');
+            $('#modalProduct').modal('hide');
             $.growl().notice({
                 title: eljson.detail,
                 message: "Actualizado",
@@ -316,7 +364,7 @@ function updateProduct(id,code,productname,brand,purchprice,
     }).fail();
 }
 
-function showProduct(code,productname,brand,purchprice,stock,salepricemin,reorderpoint,currency,categoryid,salepricemay){
+function showProduct2(code,productname,brand,purchprice,stock,salepricemin,reorderpoint,currency,categoryid,salepricemay,photo){
     $('#code').val(code);
     $('#productname').val(productname);
     $('#brand').val(brand);
@@ -327,10 +375,29 @@ function showProduct(code,productname,brand,purchprice,stock,salepricemin,reorde
     $('#currency').val(currency);
     $('#categoryid').val(categoryid);
     $('#salepricemay').val(salepricemay);
+    //$('#image').val(photo);
     $('#modalRole').modal('show');
     //updateRole(roleid,$('#rolename2').val());
     
 }
+function showProduct(productid, productname, brand, cat, code, currency, purchprice, salepricemay, salepricemin, reorderpoint, stock, photo) {
+    $('#modalProduct #productid').val(productid);
+    $('#modalProduct #productname').val(productname);
+    $('#modalProduct #brand').val(brand);
+    $('#modalProduct #cat').val(cat);
+    $('#modalProduct #code').val(code);
+    $('#modalProduct #currency').val(currency);
+    $('#modalProduct #purchprice').val(purchprice);
+    $('#modalProduct #salepricemay').val(salepricemay);
+    $('#modalProduct #salepricemin').val(salepricemin);
+    $('#modalProduct #reorderpoint').val(reorderpoint);
+    $('#modalProduct #stock').val(stock);
+    $('#modalProduct #image2').val(photo);
+
+    $('#modalProduct').modal('show');
+}
+
+
 function DeleteProduct(productid){
     $.ajax({
         url:'DeleteRole',
@@ -525,4 +592,29 @@ function deleteProduct(productid) {
         }
     });
 
+}
+
+function UpdateProduct() {
+    $.ajax({
+        url: 'UpdateProduct',
+        type: 'post',
+        data: $('#frmEditProduct').serialize()
+    }).done(function (eljson) {
+        if (eljson.code === 200) {
+            $('#tbProducts').dataTable().api().ajax.reload();
+            //$('#productname2').val('');
+            $('#modalProduct').modal('hide');
+            $.growl.notice({
+                title: eljson.detail,
+                message: "Actualizado",
+                location: 'bc',
+            });
+
+        } else
+            $.growl.error({
+                title: eljson.msg,
+                message: "Error",
+                location: 'bc',
+            });
+    }).fail();
 }
