@@ -292,10 +292,12 @@ public class EJBecommerce {
         Message msg = new Message();
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
+        
         try {
             Query q = entity.createNamedQuery("Users.findAll");
 
             users = q.getResultList();
+            
             for (Users p : users) {
                 p.setSaleList(null);
                 p.getCompanyid().setUsersList(null);

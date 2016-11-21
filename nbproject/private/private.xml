@@ -2,6 +2,15 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/Stevens%20Vera/Documents/ProyectoAEU3/AEEcommerceU3/web/user.html</file>
+            <file>file:/C:/Users/Stevens%20Vera/Documents/ProyectoAEU3/AEEcommerceU3/web/js/user.js</file>
+            <file>file:/C:/Users/Stevens%20Vera/Documents/ProyectoAEU3/AEEcommerceU3/src/java/mx/edu/ittepic/aeecommerce/servlets/product/GetProducts.java</file>
+            <file>file:/C:/Users/Stevens%20Vera/Documents/ProyectoAEU3/AEEcommerceU3/web/mProduct.html</file>
+            <file>file:/C:/Users/Stevens%20Vera/Documents/ProyectoAEU3/AEEcommerceU3/web/js/Products.js</file>
+            <file>file:/C:/Users/Stevens%20Vera/Documents/ProyectoAEU3/AEEcommerceU3/src/java/mx/edu/ittepic/aeecommerce/ejbs/EJBEcommerceProducts.java</file>
+            <file>file:/C:/Users/Stevens%20Vera/Documents/ProyectoAEU3/AEEcommerceU3/src/java/mx/edu/ittepic/aeecomerce/servlets/users/GetUsers.java</file>
+            <file>file:/C:/Users/Stevens%20Vera/Documents/ProyectoAEU3/AEEcommerceU3/src/java/mx/edu/ittepic/aeecommerce/ejbs/EJBecommerce.java</file>
+        </group>
     </open-files>
 </project-private>

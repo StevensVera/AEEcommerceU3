@@ -251,6 +251,13 @@ $(function () {
                data: "categoryid"
            },
            */
+          {
+                data: function (row) {
+                    return row['categoryid']['categoryname'];
+                    
+                }
+            },
+          
            {
                data: "salepricemay"
            },
@@ -318,7 +325,7 @@ function showProduct(code,productname,brand,purchprice,stock,salepricemin,reorde
     $('#salepricemin').val(salepricemin);
     $('#reorderpoint').val(reorderpoint);
     $('#currency').val(currency);
-    //$('#categoryid').val(categoryid);
+    $('#categoryid').val(categoryid);
     $('#salepricemay').val(salepricemay);
     $('#modalRole').modal('show');
     //updateRole(roleid,$('#rolename2').val());

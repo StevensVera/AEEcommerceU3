@@ -272,11 +272,22 @@ public class EJBEcommerceProducts {
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
         Query q;
+        
+        
         List<Product> listProduct;
 
         try {
             q = entity.createNamedQuery("Product.findAll");
+            
+            
             listProduct = q.getResultList();
+            
+            for (Product p : listProduct) {
+                //p.getCompanyid().setUsersList(null);
+                p.getCategoryid().setProductList(null);
+                //p.getRoleid().setUsersList(null);
+            }
+            
             m.setCode(200);
             m.setMsg(gson.toJson(listProduct));
             m.setDetail("todo hermoso tmb");

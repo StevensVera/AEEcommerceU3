@@ -54,13 +54,10 @@ public class GetProducts extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-      /* //processRequest(request, response);
-        response.setContentType("application/json;charset=UTF-8");
+       response.setContentType("application/json;charset=UTF-8");
         response.setHeader("Cache-Control", "no-store");
-        
-       
-      response.getWriter().print(ejb.findProducts());
-        */
+        PrintWriter out= response.getWriter();
+        out.print(ejb.findProducts());
     }
        
 
