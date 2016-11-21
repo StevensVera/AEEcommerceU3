@@ -263,15 +263,15 @@ $(function () {
            },
            
         {
-               data: function(row){
-                   console.log(row);
-                   str="<div align='center'>";
-                   str+= "<button id='btnBorrar' class = 'btn btn-danger btn-xs' onClick = 'RoleConfirm("+row['roleid']+")'>Borrar</button>";
-                   //str+= "&nbsp;<button id='btnEditar' class = 'btn btn-success btn-xs' onClick = 'showProduct("+row['code']+",\""+row['productname']+"\")'>Modificar</button>";
-                   str+="</div>"
-                   return str;
-               }
-           }
+                "data": function (row) {
+                    var str = '<div align="center"><button id="btnEliminar" title="Eliminar" class="btn btn-danger btn-xs" onclick="deleteProduct(\'' + row.productid + '\');" > <i class="glyphicon glyphicon-remove"></i></button>';
+                    str += '<button id="btnGuardar" title="Actualizar" class="btn btn-success btn-xs" onclick="showProduct' +'(\''
+                            + row.productid + '\',\'' + row.productname + '\',\'' + row.brand + '\',\'' + row.categoryid.categoryid + '\',\'' 
+                            +row.code + '\',\'' + row.currency + '\',\'' + row.purchprice + '\',\'' + row.salepricemay + '\',\'' 
+                            +row.salepricemin + '\',\'' + row.reorderpoint + '\',\'' + row.stock + '\'  );" ><i class="glyphicon glyphicon-edit"></i></button></div>';
+                    return str;
+                }
+            }
           
        ]
     });
@@ -474,3 +474,55 @@ function newProduct2() {
     }).fail();
 }
 */
+
+function deleteProduct(productid) {
+    bootbox.confirm({
+        message: "¿Seguro que desea eliminar el registro?",
+        buttons: {
+            confirm: {
+                label: 'Si',
+                className: 'btn-success'
+            },
+            cancel: {
+                label: 'NO',
+                className: 'btn-danger'
+            }
+        },
+        callback: function (result) {
+            if (result == true)
+                $.ajax({
+                    url: 'DeleteProduct',
+                    type: 'post',
+                    data: {
+                        'productid': productid,
+                    }
+                }).done(function (eljson) {
+                    if (eljson.code === 200) {
+                        $('#tbProducts').dataTable().api().ajax.reload();
+                        $('#productname').val('');
+                        $('#brand').val('');
+                        $('#cat').val('');
+                        $('#code').val('');
+                        $('#currency').val('');
+                        $('#purchprice').val('');
+                        $('#salepricemay').val('');
+                        $('#salepricemin').val('');
+                        $('#reorderpoint').val('');
+                        $('#stock').val('');
+                        $('#image').val('');
+                        $.growl.notice({
+                            title: eljson.detail,
+                            message: "Eliminado",
+                            location: 'bc',
+                        });
+                    } else
+                        $.growl.error({
+                            title: eljson.msg,
+                            message: "Error",
+                            location: 'bc',
+                        });
+                }).fail();
+        }
+    });
+
+}
