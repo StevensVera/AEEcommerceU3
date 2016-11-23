@@ -32,12 +32,12 @@ $(function () {
             var categories = $.parseJSON(eljason.msg);
             categories.forEach(function (item) {
                 $('<option></option>', {text: item.categoryname}).attr('value', item.categoryid).appendTo('#cat');
-                $('<option></option>', {text: item.categoryname}).attr('value', item.categoryid).appendTo('#modalProduct #cat');
+                $('<option></option>', {text: item.categoryname}).attr('value', item.categoryid).appendTo('#modalProduct #cat2');
             });
         }
 
     }).fail();
-    
+     
      
     
     $("#frmrole").validate({
@@ -190,7 +190,7 @@ $(function () {
                 maxlength: 40,
                 required: true,
             },
-            cat: {
+            cat2: {
                 required: true,
                 number: true,
             },
@@ -380,22 +380,7 @@ function showProduct2(code,productname,brand,purchprice,stock,salepricemin,reord
     //updateRole(roleid,$('#rolename2').val());
     
 }
-function showProduct(productid, productname, brand, cat, code, currency, purchprice, salepricemay, salepricemin, reorderpoint, stock, photo) {
-    $('#modalProduct #productid').val(productid);
-    $('#modalProduct #productname').val(productname);
-    $('#modalProduct #brand').val(brand);
-    $('#modalProduct #cat').val(cat);
-    $('#modalProduct #code').val(code);
-    $('#modalProduct #currency').val(currency);
-    $('#modalProduct #purchprice').val(purchprice);
-    $('#modalProduct #salepricemay').val(salepricemay);
-    $('#modalProduct #salepricemin').val(salepricemin);
-    $('#modalProduct #reorderpoint').val(reorderpoint);
-    $('#modalProduct #stock').val(stock);
-    $('#modalProduct #image2').val(photo);
 
-    $('#modalProduct').modal('show');
-}
 
 
 function DeleteProduct(productid){
@@ -468,40 +453,7 @@ function RoleBtnRole(roleid){
 }
 
 
-function newProduct() {
-    $.ajax({
-        url: "NewProduct",
-        type: "post",
-        data: $("#frmrole").serialize(),
-    }).done(function (eljson) {
-        if (eljson.code === 200){
-            $('#tbProduct').dataTable().api().ajax.reload();
-            $('#code','#image','#productname','#brand','#purchprice','#stock','#salepricemin','#reorderpoint','#currency','#salepricemay').val('');
-            /*
-            $('#productname').val('');
-            $('#brand').val('');
-            $('#purchprice').val('');
-            $('#stock').val('');
-            $('#salepricemin').val('');
-            $('#reorderpoint').val('');
-            $('#currency').val('');
-            $('#categoryid').val('');
-            $('#salepricemay').val('');
-            */
-            $.growl.notice({
-                title: eljson.detail,
-                message: "Todo bien",
-                location: 'bc',
-            });
-        }
-        else
-            $.growl.error({
-                title: eljson.msg,
-                message: "Error",
-                location: 'bc',
-            });
-    }).fail();
-}
+
 
 /*
 function newProduct2() {
@@ -593,7 +545,6 @@ function deleteProduct(productid) {
     });
 
 }
-
 function UpdateProduct() {
     $.ajax({
         url: 'UpdateProduct',
@@ -618,3 +569,59 @@ function UpdateProduct() {
             });
     }).fail();
 }
+
+function showProduct(productid, productname, brand, cat, code, currency, purchprice, salepricemay, salepricemin, reorderpoint, stock) {
+    $('#modalProduct #productid').val(productid);
+    $('#modalProduct #productname').val(productname);
+    $('#modalProduct #brand').val(brand);
+    $('#modalProduct #cat').val(cat);
+    $('#modalProduct #code').val(code);
+    $('#modalProduct #currency').val(currency);
+    $('#modalProduct #purchprice').val(purchprice);
+    $('#modalProduct #salepricemay').val(salepricemay);
+    $('#modalProduct #salepricemin').val(salepricemin);
+    $('#modalProduct #reorderpoint').val(reorderpoint);
+    $('#modalProduct #stock').val(stock);
+
+    $('#modalProduct').modal('show');
+}
+
+
+function newProduct() {
+    var data = new FormData($('#frmproduct')[0]);
+    $.ajax({
+        url: "NewProduct",
+        type: "post",
+        data: data,
+        contentType: false,
+        processData: false,
+    }).done(function (eljson) {
+        console.log(eljson);
+        if (eljson.code === 200) {
+            $('#tbProducts').dataTable().api().ajax.reload();
+            $('#tbProducts').dataTable().api().ajax.reload();
+            $('#productname').val('');
+            $('#brand').val('');
+            $('#cat').val('');
+            $('#code').val('');
+            $('#currency').val('');
+            $('#purchprice').val('');
+            $('#salepricemay').val('');
+            $('#salepricemin').val('');
+            $('#reorderpoint').val('');
+            $('#stock').val('');
+            $('#image').val('');
+            $.growl.notice({
+                title: eljson.detail,
+                message: "Todo bien",
+                location: 'bc',
+            });
+        } else
+            $.growl.error({
+                title: eljson.msg,
+                message: "Error",
+                location: 'bc',
+            });
+    }).fail();
+}
+

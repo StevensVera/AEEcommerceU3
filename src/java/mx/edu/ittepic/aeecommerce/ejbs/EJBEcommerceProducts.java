@@ -99,6 +99,7 @@ public class EJBEcommerceProducts {
                 Category c = entity.find(Category.class, Integer.parseInt(categoryid));
                 p.setCode(code);
                 p.setProductname(productname);
+                p.setPhoto(photo);
                 p.setBrand(brand);
                 p.setPurchprice(Integer.parseInt(purchprice));
                 p.setStock(Integer.parseInt(stock));
@@ -107,7 +108,7 @@ public class EJBEcommerceProducts {
                 p.setCurrency(curency);
                 p.setCategoryid(c);
                 p.setSalepricemay(Integer.parseInt(salepricemay));
-                p.setPhoto(photo);
+                
                 entity.merge(p);
                 //entity.flush();
                 m.setCode(200);

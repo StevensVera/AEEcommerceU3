@@ -11,6 +11,7 @@ import java.io.PrintWriter;
 import java.nio.file.Paths;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +26,7 @@ import mx.edu.ittepic.aeecommerce.util.Image;
  * @author gustavo
  */
 @WebServlet(name = "NewProduct", urlPatterns = {"/NewProduct"})
+@MultipartConfig
 public class NewProduct extends HttpServlet {
     @EJB
     private EJBEcommerceProducts ejb;
@@ -104,15 +106,16 @@ public class NewProduct extends HttpServlet {
         String categoryid=request.getParameter("categoryid");
         String salepricemay=request.getParameter("salepricemay");
         
-        Part foto= request.getPart("image");
+       Part foto= request.getPart("photo");
         String fotoname = Paths.get(foto.getSubmittedFileName()).getFileName().toString();
         InputStream fcontent = foto.getInputStream();
         Image imagen = new Image(fotoname, fcontent);
        
-        PrintWriter out = response.getWriter();
+        //PrintWriter out = response.getWriter();
         //out.print(ejb.newProduct(code, brand, purchprice, productname, stock, salepricemin, salepricemay, reorderpoint, cat, currency));
         //out.print(ejb.newProduct(code, brand, purchprice, productname, stock, salepricemin, salepricemay, reorderpoint, categoryid, currency));
-        out.print(ejb.newProduct(code,productname,brand,purchprice,stock,salepricemin,reorderpoint,currency,categoryid,salepricemay,imagen));
+        //out.print(ejb.newProduct(code,productname,brand,purchprice,stock,salepricemin,reorderpoint,currency,categoryid,salepricemay,imagen));
+        response.getWriter().print(ejb.newProduct(code, brand, purchprice, productname, stock, salepricemin, salepricemay, reorderpoint, categoryid, currency, imagen));
         //processRequest(request, response);
     
         }

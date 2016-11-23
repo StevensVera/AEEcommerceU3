@@ -6,7 +6,9 @@
 package mx.edu.ittepic.aeecomerce.servlets.users;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.nio.file.Paths;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,6 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import mx.edu.ittepic.aeecommerce.ejbs.EJBecommerce;
+import mx.edu.ittepic.aeecommerce.util.Image;
 
 /**
  *
@@ -85,7 +88,8 @@ public class UpdateUser extends HttpServlet {
         String companyid = request.getParameter("companyid");
         String roleid = request.getParameter("roleid");
         String gender = request.getParameter("gender");
-
+        
+       
         PrintWriter out = response.getWriter();
         out.print(ejbM.updateUser(username, userid, phone, neigborhood, zipcode, city, country, state, region, street, email, streetnumber, photo, cellphone, companyid, roleid, gender));
     }

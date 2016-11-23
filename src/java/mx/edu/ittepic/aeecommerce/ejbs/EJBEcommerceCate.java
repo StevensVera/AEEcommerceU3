@@ -25,7 +25,7 @@ import mx.edu.ittepic.aeecommerce.util.Message;
 public class EJBEcommerceCate {
  @PersistenceContext
     private EntityManager entity;
-    
+                  
     public String getCategory() {
         List<Category> listCategory;
         Message m = new Message();

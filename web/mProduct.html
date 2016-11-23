@@ -24,7 +24,6 @@ and open the template in the editor.
         <link rel="stylesheet" href="css/jquery.growl.css" type="text/css">
         <script type="text/javascript" src="js/plugins/bootbox.min.js"></script>
         <script type="text/javascript" src="js/plugins/datatable/numeral.min.js"></script>
-
 <div id="modalProduct" class="modal" >
     <div class="modal-dialog">
         <div class="modal-content">
@@ -40,13 +39,11 @@ and open the template in the editor.
                         <span class="input-group-addon">
                             <i class="glyphicon glyphicon-adjust"></i>
                         </span>
-                        
                         <input type="hidden" id="productid" name="productid"/>
-                        
                         <div class="row">
                             <div class="col col-lg-4 col-md-4 col-sm-4 col-xs-4">
                                 <div class="form-group">
-                                    <label class="control-label" for="productname">Nombre</label>
+                                    <label class="control-label" for="productname">productname</label>
                                     <div class="input-group">
                                         <span class="input-group-addon">
                                             <i class="glyphicon glyphicon-adjust"></i>
@@ -57,7 +54,7 @@ and open the template in the editor.
                             </div>
                             <div class="col col-lg-4 col-md-4 col-sm-4 col-xs-4">
                                 <div class="form-group">
-                                    <label class="control-label" for="brand">Marca</label>
+                                    <label class="control-label" for="brand">brand</label>
                                     <div class="input-group">
                                         <span class="input-group-addon">
                                             <i class="glyphicon glyphicon-adjust"></i>
@@ -68,12 +65,12 @@ and open the template in the editor.
                             </div>
                             <div class="col col-lg-4 col-md-4 col-sm-4 col-xs-4">
                                 <div class="form-group">
-                                    <label class="control-label" for="cat">Categoria</label>
+                                    <label class="control-label" for="cat">Category</label>
                                     <div class="input-group">
                                         <span class="input-group-addon">
                                             <i class="glyphicon glyphicon-adjust"></i>
                                         </span>
-                                        <select class="form-control"  id="cat" name="cat">
+                                        <select class="form-control"  id="cat2" name="cat">
 
                                         </select>
                                     </div>
@@ -84,7 +81,7 @@ and open the template in the editor.
                         <div class="row">
                             <div class="col col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                 <div class="form-group">
-                                    <label class="control-label" for="code">Código</label>
+                                    <label class="control-label" for="code">Code</label>
                                     <div class="input-group">
                                         <span class="input-group-addon">
                                             <i class="glyphicon glyphicon-adjust"></i>
@@ -94,23 +91,27 @@ and open the template in the editor.
                                 </div>
                             </div>
                             <div class="col col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                               <div class="form-group">
-                        <!--<label class="control-label" for="rolename">Rol</label>-->
-                        <label class="control-label" for="currency">currency</label>
-                        <div class="input-group">
-                            <span class="input-group-addon">
-                                <i class="glyphicon glyphicon-adjust"></i>
-                            </span>
-                            <!--<input class="form-control" type="text" id="rolename" name="rolename" placeholder="nombre del rol"/>-->
-                            <input class="form-control" type="text" id="currency" name="currency" placeholder=" add currency"/>
-                        </div>
-                    </div>
+                                <div class="form-group">
+                                    <label class="control-label" for="currency">currency</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="glyphicon glyphicon-adjust"></i>
+                                        </span>
+                                        <select class="form-control" id="currency" name="currency" >
+                                            <option value="MXN" selected>Pesos mexicanos MXN</option>
+                                            <option value="USD">Dólares americanos</option>
+                                            <option value="EUR">Euros</option> 
+                                            <option value="AUD">Dólar australiano</option>
+                                            <option value="CNY">Renminbi</option>                               
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col col-lg-4 col-md-4 col-sm-4 col-xs-4">
                                 <div class="form-group">
-                                    <label class="control-label" for="purchprice">Precio de compra</label>
+                                    <label class="control-label" for="purchprice">purchprime</label>
                                     <div class="input-group">
                                         <span class="input-group-addon">
                                             <i class="glyphicon glyphicon-adjust"></i>
@@ -121,7 +122,7 @@ and open the template in the editor.
                             </div>
                             <div class="col col-lg-4 col-md-4 col-sm-4 col-xs-4">
                                 <div class="form-group">
-                                    <label class="control-label" for="salepricemay">Precio de venta mayoreo</label>
+                                    <label class="control-label" for="salepricemay">salepricemay</label>
                                     <div class="input-group">
                                         <span class="input-group-addon">
                                             <i class="glyphicon glyphicon-adjust"></i>
@@ -132,7 +133,7 @@ and open the template in the editor.
                             </div>
                             <div class="col col-lg-4 col-md-4 col-sm-4 col-xs-4">
                                 <div class="form-group">
-                                    <label class="control-label" for="salepricemin">Precio de venta</label>
+                                    <label class="control-label" for="salepricemin">salepricemin</label>
                                     <div class="input-group">
                                         <span class="input-group-addon">
                                             <i class="glyphicon glyphicon-adjust"></i>
@@ -143,9 +144,9 @@ and open the template in the editor.
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="col col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                 <div class="form-group">
-                                    <label class="control-label" for="reorderpoint">Punto de reorden</label>
+                                    <label class="control-label" for="reorderpoint">reorderpoint</label>
                                     <div class="input-group">
                                         <span class="input-group-addon">
                                             <i class="glyphicon glyphicon-adjust"></i>
@@ -154,7 +155,7 @@ and open the template in the editor.
                                     </div>
                                 </div>
                             </div>
-                            <div class="col col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="col col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                 <div class="form-group">
                                     <label class="control-label" for="stock">Stock</label>
                                     <div class="input-group">
@@ -165,19 +166,6 @@ and open the template in the editor.
                                     </div>
                                 </div>
                             </div>
-                            <div class="col col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                                <div class="form-group">
-                                    <label class="control-label" for="image2">Image</label>
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <i class="glyphicon glyphicon-adjust"></i>
-                                        </span>
-                                        <input class="form-control" type= "text" id="image2" name="image2" placeholder="Imagen">
-                                    </div>
-                                </div>
-                            </div>
-                            
-                           
                         </div>
 
                     </div>
@@ -196,6 +184,7 @@ and open the template in the editor.
     </div>
 
 </div>
+
             <div class="row">
                 <div class="col col-lg-8 col-md-8 col-sm-8 col-xs-8 col-sm-offset-2">
                     <form id="frmrole" >
