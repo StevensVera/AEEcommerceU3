@@ -1,0 +1,100 @@
+
+
+	
+  <link href='http://fonts.googleapis.com/css?family=Work+Sans:400,600,700' rel='stylesheet' type='text/css'>
+ 
+  <script src="js/libs/underscore-min.js"></script>
+  <script src="js/libs/backbone-min.js"></script>
+  <script src="js/libs/lightbox.js"></script>
+  <script src="js/store.js"></script>
+ 
+	<script type="text/template" id="tmp-pictureItem">
+	<div class="shoppingListItemContent">
+		<a href="<%= image %>" data-toggle="lightbox">
+			<img src="<%= thumb %>" class="img-responsive" />
+		</a>
+		<!-- Button trigger modal -->
+		<div class="clearfix">
+			<div class="product-tags pull-left">
+				<span class="label label-danger"><%= photographer %></span>
+				<span class="label label-info"><%= tag %></span>
+			</div>
+			<div class="product-price pull-right">
+				<span class="price">€ <%= price.toFixed(2) %></span>
+			</div>
+		</div>
+		<div class="infos">
+			<h4 class="name text-info"><%= title %></h4>
+			<button id="addCart" class="btn btn-danger btn-sm"><i class="fa fa-shopping-cart"></i> Add to cart</button>
+			<button id="moreInfo" class="btn btn-primary btn-sm hidden-md"><i class="fa fa-info-circle"></i> More Info</button>
+		</div>
+	</div>
+	</script>
+
+	
+	<script type="text/template" id="tmp-details">
+	<div class="col-md-6">
+		<a href="<%= image %>" data-toggle="lightbox"><img src="<%= image %>" class="img-responsive"/></a>
+	</div>
+	<div class="col-md-6">
+		<div class="product-tags">
+			<span class="label label-danger"><%= photographer %></span>
+			<span class="label label-info"><%= tag %></span>
+		</div>
+		<h4><%= title %></h4>
+		<p class="description"><%= description %></p>
+		<div class="row">
+			<div class="col-sm-3">
+				<div class="product-price">€ <%= price.toFixed(2) %></div>
+			</div>
+			<div class="col-sm-6 col-md-offset-3">
+				<button id="cart" class="btn btn-lg btn-danger"><i class="fa fa-shopping-cart"></i> Add to cart</button>
+			</div>
+		</div>
+	</div>
+	<button id="back" class="btn btn-default"><i class="fa fa-chevron-left"></i> Back</button>
+	</script>
+
+	<!-- Template for the sshopping cart item-->
+	<script type="text/template" id="tmp-shoppingCartItem">
+		<td class="name"><i class="fa fa-times-circle"></i> <%= title %></td>
+		<td class="sub-total">€<%= total.toFixed(2) %></td>
+	</script>
+
+
+
+	
+        
+	<div class="container-fluid">
+		<div class="row">
+
+			<div class="col-sm-9  col-md-9  main" id="main">
+				<div class="row">
+					<div id="app"></div>
+				</div>
+	
+				<div class="row">
+					<ul id="default-item-list" class="col-md-12"></ul>
+				</div>
+	
+				<div class="row">
+					<div id="detail"></div>
+				</div>
+			</div>
+
+			<div class="col-sm-3  col-md-3  slider" id="sidebar">
+				<table id="shopping-cart" class="table table-responsive">
+					<tbody id="shopping-list"></tbody>
+					<tfoot>
+						<tr>
+							<td colspan="4" id="total">€ 0.00</td>
+						</tr>
+					</tfoot>
+				</table>
+				<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" id="showForm">Check out</button>
+			</div>
+		</div>
+	 </div>
+	
+
+
