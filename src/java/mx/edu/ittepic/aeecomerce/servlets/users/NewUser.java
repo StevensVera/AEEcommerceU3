@@ -7,6 +7,7 @@
 package mx.edu.ittepic.aeecomerce.servlets.users;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import mx.edu.ittepic.aeecommerce.ejbs.EJBecommerce;
+import org.apache.commons.codec.digest.DigestUtils;
 
 /**
  *
@@ -64,26 +66,31 @@ public class NewUser extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
-        response.setHeader("cache-control", "no-store");
+        response.setHeader("Cache-control", "no-store");
+        
+        PrintWriter p = response.getWriter();
+        
+        
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String phone = request.getParameter("phone");
-        String cellphone = request.getParameter("cellphone");
-        String email = request.getParameter("email");
         String neigborhood = request.getParameter("neigborhood");
         String zipcode = request.getParameter("zipcode");
         String city = request.getParameter("city");
-        String country = request.getParameter("country");        
+        String country = request.getParameter("country");
         String state = request.getParameter("state");
         String region = request.getParameter("region");
         String street = request.getParameter("street");
+        String email = request.getParameter("email");
         String streetnumber = request.getParameter("streetnumber");
         String photo = request.getParameter("photo");
-        String companyid = request.getParameter("companyid");
-        String roleid = request.getParameter("roleid");
+        String cellphone = request.getParameter("cellphone");
+        String com = request.getParameter("companyid");
+        String rol = request.getParameter("roleid");
         String gender = request.getParameter("gender");
-              
-        response.getWriter().print(ejb.newUser(username, password, phone, neigborhood, zipcode, city, country, state, region, street, email, streetnumber, photo, cellphone, companyid, roleid, gender));
+     
+        System.out.println("servlet new");
+        p.println(ejb.newUser(username, password, phone, neigborhood, zipcode, city, country, state, region, street, email, streetnumber, photo, cellphone, com, rol, gender));
     }
 
     /**

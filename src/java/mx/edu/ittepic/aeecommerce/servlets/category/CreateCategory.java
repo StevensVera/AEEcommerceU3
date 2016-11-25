@@ -36,12 +36,12 @@ private EJBEcommerceCate ejb;
             throws ServletException, IOException {
        response.setContentType("application/json;charset=UTF-8");
         response.setHeader("Cache-Control", "no-store");
-        try (PrintWriter out = response.getWriter()) {
+        PrintWriter out = response.getWriter();
             /* TODO output your page here. You may use following sample code. */
             String categoryid=request.getParameter("categoryid");
             String categoryname=request.getParameter("categoryname");
             out.print(ejb.createCategory(categoryid, categoryname));
-        }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

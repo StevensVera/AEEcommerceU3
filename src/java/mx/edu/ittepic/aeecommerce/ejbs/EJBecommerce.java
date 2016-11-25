@@ -27,6 +27,7 @@ import mx.edu.ittepic.aeecommerce.entities.Company;
 import mx.edu.ittepic.aeecommerce.entities.Role;
 import mx.edu.ittepic.aeecommerce.entities.Users;
 import mx.edu.ittepic.aeecommerce.util.Message;
+import org.apache.commons.codec.digest.DigestUtils;
 
 /**
  *
@@ -62,74 +63,70 @@ public class EJBecommerce {
 
     }
 
-    public String newUser(String username, String password, String phone, String neigborhood, String zipcode,
-            String city, String country, String state, String region, String street, String email,
-            String streetnumber, String photo, String cellphone, String companyid, String roleid, String gender) {
+    public String newUser(String username, String password, String phone,
+            String neigborhood, String zipcode, String city, String country,
+            String state, String region, String street, String email, String streetnumber,
+            String photo, String cellphone, String companyid, String roleid, String gender) {
 
         Message m = new Message();
+        Users u = new Users();
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
-        Users u = new Users();
-        Company c;
-        Role r;
+
+        Company com = entity.find(Company.class, Integer.parseInt(companyid));
+        Role rol = entity.find(Role.class, Integer.parseInt(roleid));
 
         try {
-            c = entity.find(Company.class, Integer.parseInt(companyid));
-
-            r = entity.find(Role.class, Integer.parseInt(roleid));
-
-            u.setRoleid(r);
-            u.setCompanyid(c);
-            u.setCellphone(cellphone);
-            u.setCity(city);
-            u.setRegion(region);
-            u.setCountry(country);
-            u.setEmail(email);
-            u.setGender(gender.charAt(0));
-            u.setNeigborhood(neigborhood);
-            u.setPassword(password);
-            u.setPhone(phone);
-            u.setPhoto(photo);
-            u.setState(state);
-            u.setStreet(street);
-            u.setStreetnumber(streetnumber);
+            String cadenaoriginal = password;
+            String md5= DigestUtils.md5Hex(cadenaoriginal);
+            
             u.setUsername(username);
+            u.setPassword(md5);
+            u.setPhone(phone);
+            u.setNeigborhood(neigborhood);
             u.setZipcode(zipcode);
+            u.setCity(city);
+            u.setCountry(country);
+            u.setState(state);
+            u.setRegion(region);
+            u.setStreet(street);
+            u.setEmail(email);
+            u.setStreetnumber(streetnumber);
+            u.setPhoto(photo);
+            u.setCellphone(cellphone);
+            u.setCompanyid(com);
+            u.setRoleid(rol);
+            u.setGender(gender.charAt(0));
+            u.setApikey("off");
 
             entity.persist(u);
             entity.flush();
+            
+            updateUser(u.getUserid().toString(), u.getApikey());
 
             m.setCode(200);
-            m.setMsg("El usuario se creó correctamente");
-            m.setDetail(u.getUserid() + "");
-        } catch (NumberFormatException e) {
-            m.setCode(406);
-            m.setMsg("Error de tipo de dato '" + username + "'.");
+            m.setMsg("El usuario se ha registro correctamente");
+            m.setDetail(u.getUserid().toString());
+
+        } catch (IllegalArgumentException e) {
+            m.setCode(503);
+            m.setMsg("Error en la base de datos");
+            m.setDetail(e.toString());
+        } catch (TransactionRequiredException e) {
+            m.setCode(503);
+            m.setMsg("Error en la transaccion con la base de datos");
             m.setDetail(e.toString());
         } catch (EntityExistsException e) {
             m.setCode(400);
-            m.setMsg("El usuario que intentas ingresar ya existe: '" + username + "'.");
-            m.setDetail(e.toString());
-        } catch (IllegalArgumentException e) {
-            m.setCode(422);
-            m.setMsg("Error de entidad, el usuario no es una entidad o ha sido removido.");
-            m.setDetail(e.toString());
-        } catch (TransactionRequiredException e) {
-            m.setCode(509);
-            m.setMsg("La transacción no pudo ser completada. Espera un momento y vuelve a intentar.");
-            m.setDetail(e.toString());
-        } catch (EntityNotFoundException e) {
-            m.setCode(404);
-            m.setMsg("El usuario introducido(" + username + ") no existe, no se puede actualizar.");
+            m.setMsg("Hubo problemas con la base de datos");
             m.setDetail(e.toString());
         }
         return gson.toJson(m);
     }
 
-    public String updateUser(String username, String userid, String phone, String neigborhood, String zipcode,
-            String city, String country, String state, String region, String street, String email,
-            String streetnumber, String photo, String cellphone, String companyid, String roleid, String gender) {
-        Message m = new Message();
+    public String updateUser(String userid, String apikey) {
+        
+        /*Message m = new Message();
         Company c;
         Role r;
         GsonBuilder builder = new GsonBuilder();
@@ -167,12 +164,12 @@ public class EJBecommerce {
                 m.setDetail("No existe el usuario especificado");
             }
 
-            /*int roleidint=Integer.parseInt(roleid);
+            int roleidint=Integer.parseInt(roleid);
         r.setRoleid(roleidint);    
         r.setRolename(rolename);
         //El refresh es para actualizar una entidad
         entity.refresh(entity.merge(r)); // Si el id existe hace un update, sino guarda una nuevo. Persistencia manejada por le contenedor
-        entity.flush();*/
+        entity.flush();
         } catch (NumberFormatException e) {
             m.setCode(406);
             m.setMsg("Error de tipo de dato '" + userid + "'.");
@@ -190,8 +187,56 @@ public class EJBecommerce {
             m.setMsg("El usuario introducido(" + userid + ") no existe, no se puede actualizar.");
             m.setDetail(e.toString());
         }
-        return gson.toJson(m);
+        return gson.toJson(m);*/
 
+        Message m = new Message();
+        Users r = new Users();
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+       
+        
+        try {
+            Query q = entity.createNamedQuery("Users.updateUser").
+       
+                    setParameter("apikey", apikey).
+                    setParameter("userid", Integer.parseInt(userid));
+            
+                    String idapi = userid;
+                    String md5 = DigestUtils.md5Hex(idapi);
+
+           Query a = entity.createNamedQuery("Users.updateUserE").
+                   setParameter("apikey", md5).setParameter("userid", Integer.parseInt(userid));
+            
+            
+            
+            if (q.executeUpdate() == 1 && a.executeUpdate()==1) {
+                m.setCode(200);
+                m.setMsg("Se actualizo correctamente.");
+                m.setDetail("OK");
+            } else {
+                m.setCode(404);
+                m.setMsg("No se realizo la actualizacion");
+                m.setDetail("");
+            }
+
+        } catch (IllegalStateException e) {
+            m.setCode(404);
+            m.setMsg("No se realizo la actualizacion");
+            m.setDetail(e.toString());
+        } catch (TransactionRequiredException e) {
+            m.setCode(404);
+            m.setMsg("No se realizo la actualizacion");
+            m.setDetail(e.toString());
+        } catch (QueryTimeoutException e) {
+            m.setCode(404);
+            m.setMsg("No se realizo la actualizacion");
+            m.setDetail(e.toString());
+        } catch (PersistenceException e) {
+            m.setCode(404);
+            m.setMsg("No se realizo la actualizacion");
+            m.setDetail(e.toString());
+        }
+        return gson.toJson(m);
     }
     public String deleteUser(String userid) {
         Message m = new Message();
@@ -288,54 +333,35 @@ public class EJBecommerce {
 
     public String getUsers() {
 
-        List<Users> users;
-        Message msg = new Message();
+        List<Users> listUsers;
+        Message m = new Message();
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
+        String msg = "";
         
         try {
             Query q = entity.createNamedQuery("Users.findAll");
-
-            users = q.getResultList();
+            listUsers = q.getResultList();
             
-            for (Users p : users) {
-                p.setSaleList(null);
-                p.getCompanyid().setUsersList(null);
-                p.getRoleid().setUsersList(null);
+            Users users;
+            
+            for(int i = 0; i< listUsers.size(); i++){
+                users = listUsers.get(i);
+                users.getCompanyid().setUsersList(null);
+                users.getRoleid().setUsersList(null);
             }
-            msg.setCode(200);
-            msg.setMsg(gson.toJson(users));
-            msg.setDetail("OK");
+            
+            msg = gson.toJson(listUsers);
+
+            m.setCode(200);
+            m.setMsg(msg);
+            m.setDetail("OK");
         } catch (IllegalArgumentException e) {
-            msg.setCode(422);
-            msg.setMsg("Error de entidad, el usuario no es una entidad.");
-            msg.setDetail(e.toString());
-        } catch (IllegalStateException e) {
-            msg.setCode(422);
-            msg.setMsg("Error de entidad, el usuario no es una entidad o ha sido removido.");
-            msg.setDetail(e.toString());
-        } catch (QueryTimeoutException e) {
-            msg.setCode(509);
-            msg.setMsg("La operación tardo demasiado, por favor vuelve a intentarlo.");
-            msg.setDetail(e.toString());
-        } catch (TransactionRequiredException e) {
-            msg.setCode(509);
-            msg.setMsg("La operación tardo demasiado, por favor vuelve a intentarlo.");
-            msg.setDetail(e.toString());
-        } catch (PessimisticLockException e) {
-            msg.setCode(400);
-            msg.setMsg("Error, operación bloqueada (Pesimistic), no se realizo la transacción.");
-            msg.setDetail(e.toString());
-        } catch (LockTimeoutException e) {
-            msg.setCode(400);
-            msg.setMsg("Error, operación bloqueada (Lock), no se realizo la transacción.");
-            msg.setDetail(e.toString());
-        } catch (PersistenceException e) {
-            msg.setCode(400);
-            msg.setMsg("Error, operación bloqueada (Persistence), no se realizo la transacción.");
-            msg.setDetail(e.toString());
+            m.setCode(501);
+            m.setMsg("Error al consultar los registros");
+            m.setDetail(e.toString());
         }
-        return gson.toJson(msg);
+        return gson.toJson(m);
     }
 
 

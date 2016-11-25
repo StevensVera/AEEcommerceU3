@@ -28,7 +28,7 @@ public class EJBEcommerceRoles {
     private EntityManager entity;
 
     public String getRoles() {
-        List<Role> listRoles;
+        /*List<Role> listRoles;
         Message m = new Message();
         String msg = "";
 
@@ -42,6 +42,30 @@ public class EJBEcommerceRoles {
         m.setCode(200);
         m.setMsg(msg);
         m.setDetail("Ok");
+
+        return gson.toJson(m);*/
+        List<Role> listRoles;
+        Message m = new Message();
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+
+        Query q = entity.createNamedQuery("Role.findAll");
+        listRoles = q.getResultList();
+
+        String roles = "[";
+        for (Role listRole : listRoles) {
+            roles = roles + "{\"roleid\":" + listRole.getRoleid() + ", \"rolename\":\"" + listRole.getRolename() + "\"},";
+        }
+
+        roles = roles.substring(0, roles.length() - 1);
+        roles = roles + "]";
+
+        /*for(int i = 0; i < listRoles.size(); i++){
+            listRoles.get(i).setUsersList(null);
+        }*/
+        m.setCode(200);
+        m.setMsg(roles);
+        m.setDetail("OK");
 
         return gson.toJson(m);
     }

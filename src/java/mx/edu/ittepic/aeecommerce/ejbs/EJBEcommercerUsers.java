@@ -37,6 +37,8 @@ public class EJBEcommercerUsers {
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
         try {
+            
+            
             Query q = entity.createNativeQuery("select * from role where rolename like '" + nameusers + "%'", Role.class)
                     .setParameter("name",nameusers + "%");
             List<Role> list = q.getResultList();

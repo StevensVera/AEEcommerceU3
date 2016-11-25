@@ -37,8 +37,7 @@ public class GetCompanys extends HttpServlet {
             throws ServletException, IOException {
        response.setContentType("application/json;charset=UTF-8");
         response.setHeader("Cache-Control", "no-store");
-        PrintWriter out= response.getWriter();
-        out.print(ejb.findCompany());
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -58,6 +57,10 @@ public class GetCompanys extends HttpServlet {
         response.setHeader("Cache-Control", "no-store");
         PrintWriter out= response.getWriter();
         out.print(ejb.findCompany());*/
+        response.setContentType("application/json;charset=UTF-8");
+        response.setHeader("Cache-Control", "no-store");
+        PrintWriter out= response.getWriter();
+        out.print(ejb.findCompany());
     }
 
     /**

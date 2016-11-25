@@ -32,6 +32,37 @@ public class EJBEcommerceCompany {
     @PersistenceContext
     private EntityManager entity;
     
+    public String getCompanys(){
+        List<Company> listCompanys;
+        Message m = new Message();
+        String msg = "";
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+        
+        Company company;
+        
+        try {
+            Query q = entity.createNamedQuery("Company.findAll");
+            listCompanys = q.getResultList();
+
+            
+            for(int i = 0; i < listCompanys.size(); i++){
+                company = listCompanys.get(i);
+                company.setUsersList(null);
+            }
+            
+            msg = gson.toJson(listCompanys);
+            
+            m.setCode(200);
+            m.setMsg(msg);
+            m.setDetail("OK");
+        } catch (IllegalArgumentException e) {
+            m.setCode(501);
+            m.setMsg("Error al consultar los registros");
+            m.setDetail(e.toString());
+        }
+        return gson.toJson(m);
+    }
  public String NewCompany(String companyname,String neighborhood,String zipcode,String city,String country,
          String state, String region,String street,String streetnumber,String phone,String rfc,String logo){
       Message m = new Message();

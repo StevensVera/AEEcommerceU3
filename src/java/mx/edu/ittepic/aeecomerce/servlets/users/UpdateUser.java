@@ -23,7 +23,7 @@ import mx.edu.ittepic.aeecommerce.ejbs.EJBecommerce;
 public class UpdateUser extends HttpServlet {
 
     @EJB
-    EJBecommerce ejbM;
+    EJBecommerce ejb;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,6 +36,19 @@ public class UpdateUser extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet UpdateUser</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet UpdateUser at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
 
     }
 
@@ -51,6 +64,7 @@ public class UpdateUser extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        processRequest(request, response);
 
     }
 
@@ -68,7 +82,14 @@ public class UpdateUser extends HttpServlet {
         response.setHeader("Cache-Control", "no-store");
         response.setContentType("application/json;charset=UTF-8");
 
-        String username = request.getParameter("username");
+        PrintWriter p = response.getWriter();
+        
+        String userid = request.getParameter("userid");
+        String apikey = request.getParameter("apikey");
+        
+        p.println(ejb.updateUser(userid, apikey));
+        
+        /*String username = request.getParameter("username");
         String userid = request.getParameter("userid");
         String phone = request.getParameter("phone");
         String cellphone = request.getParameter("cellphone");
@@ -88,6 +109,8 @@ public class UpdateUser extends HttpServlet {
 
         PrintWriter out = response.getWriter();
         out.print(ejbM.updateUser(username, userid, phone, neigborhood, zipcode, city, country, state, region, street, email, streetnumber, photo, cellphone, companyid, roleid, gender));
+    */
+        
     }
 
     /**
